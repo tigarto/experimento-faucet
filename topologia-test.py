@@ -11,7 +11,7 @@ Topologia:
           |
           h2
 
-sudo python symple_containernet_topo.py 
+sudo python topologia-test.py 
 
 Controlador: 
 
@@ -29,20 +29,25 @@ setLogLevel('info')
 
 info('*** Create the controller \n')
 
+
+
+c0 = RemoteController('c0', ip = "127.0.0.1", port = 6653)
+info(c0)
 "Create Simple topology example."
-net = Containernet(controller=Controller, build=False)
+net = Containernet(build=False)
+# Initialize topology
+
 
 # Add containers
 info('*** Adding docker containers using ubuntu-test images\n')
 # Codigo DoS: https://github.com/firefoxbug/ddos/blob/master/
-h1 = net.addDocker('h1', ip='10.0.0.251', dimage="ubuntu-test")
-h2 = net.addDocker('h2', ip='10.0.0.252', dimage="openswitch/ubuntuscapy",volumes=[ os.getcwd() + "/dos_code:/mnt/dos_code:rw"])
-h3 = net.addDocker('h3', ip='10.0.0.253', dimage="ubuntu-test",volumes=[ os.getcwd() + "/home_server:/mnt/home_server:rw"])
+h1 = net.addDocker('h1', ip='10.0.0.251', dimage="ubuntu-test")                  # Cliente
+h2 = net.addDocker('h2', ip='10.0.0.252', dimage="openswitch/ubuntuscapy")       # Atacante
+h3 = net.addDocker('h3', ip='10.0.0.253', dimage="ubuntu-test")                  # Victima
 
 # Add switches    
 info('*** Adding switches\n')
-# s1 = OVSSwitch(name = 's1', failMode = 'standalone')
-s1 = net.addSwitch('s1')
+s1 = OVSSwitch(name = 's1', failMode = 'secure')
 
 # Add links    
 info('*** Creating links\n')
