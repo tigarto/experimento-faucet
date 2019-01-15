@@ -31,5 +31,7 @@ sudo sudo ovs-vsctl show
     ovs_version: "2.5.5"
 ```
 
+3. El controlador que se empleará sera el faucet cuya arquitectura se muestra a continuación. 
+
 
 
