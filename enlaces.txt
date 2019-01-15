@@ -1,0 +1,115 @@
+ryu-manager --ofp-tcp-listen-port 6653 simple_switch_13.py 
+
+
+sudo python topo_test.py 
+
+
+./pox.py log.level --DEBUG openflow.of_01 --port=6653 forwarding.l2_learning 
+
+
+Pasos:
+
+Arrancar la topologia y probar conectividad:
+sudo python symple_containernet_topo.py
+Arrancar el controlador:
+./pox.py log.level --DEBUG openflow.of_01 --port=6653 forwarding.l2_learning 
+
+https://conference.faucet.nz/schedule/
+
+https://conference.faucet.nz/slides/Bill%20Fisher%20-%20Faucet%20on%20ZOF.pdf
+
+
+
+
+cd ryu
+ryu-manager --ofp-tcp-listen-port 6653 ryu/app/simple_switch_13.py 
+
+create_ns host1 192.168.0.1/24
+create_ns host2 192.168.0.2/24
+
+set-controller br0 tcp:127.0.0.1:6653 tcp:127.0.0.1:6654
+
+as_ns host1 ping 192.168.0.2
+
+
+py s1.bridgeOpts()
+ other_config:datapath-id=0000000000000001 fail_mode=secure other-config:disable-in-band=true
+
+containernet> py s1.datapath
+kernel
+
+containernet> py s1.linkTo
+<bound method OVSSwitch.linkTo of <OVSSwitch s1: lo:127.0.0.1,s1-eth1:None,s1-eth2:None,s1-eth3:None pid=23943> >
+
+
+
+http://csie.nqu.edu.tw/smallko/sdn/twNics.htm
+
+http://www.obriain.com/temp/Mininet-script-issue.pdf
+
+https://wiki.opendaylight.org/view/OpenDaylight_OpenFlow_Plugin::Mininet_with_multiple_controllers
+
+
+
+https://intronetworks.cs.luc.edu/current/html/mininet.html
+
+tigarto@fuck-pc:~$ sudo ovs-vsctl list-br
+s1
+
+9ec06414-9bd9-4579-81d4-8e7801c2eb61
+    Bridge "s1"
+        Controller "tcp:127.0.0.1:6653"
+            is_connected: true
+        fail_mode: secure
+        Port "s1"
+            Interface "s1"
+                type: internal
+    ovs_version: "2.5.5"
+
+sudo ovs-vsctl list-ports s1 
+
+containernet> py s1.vsctl('show')
+9ec06414-9bd9-4579-81d4-8e7801c2eb61
+    Bridge "s1"
+        Controller "tcp:127.0.0.1:6654"
+        Controller "tcp:127.0.0.1:6653"
+            is_connected: true
+        fail_mode: secure
+        Port "s1"
+            Interface "s1"
+                type: internal
+    ovs_version: "2.5.5"
+
+
+sudo ovs-vsctl set-controller s1 tcp:127.0.0.1:6654 tcp:127.0.0.1:6653
+
+
+containernet> py s1.vsctl('show')
+
+ py h1.cmd('ifconfig')
+
+
+sudo ovs-vsctl set-controller s1 tcp:127.0.0.1:6653 tcp:127.0.0.1:6654
+
+*********************************************************************************
+
+
+https://www.programcreek.com/python/example/97395/mininet.cli.CLI
+
+Ref: http://srijan-codexperiences.blogspot.com/2013/07/connect-multiple-openflow-controllers.html
+
+http://docs.openvswitch.org/en/latest/faq/configuration/
+
+
+*********************************************************************************
+
+sudo fuser -n tcp 6653
+
+
+
+https://github.com/prasoontelang/multiple-controller/blob/master/mininet/examples/controllers2.py
+https://anothertla.wordpress.com/2015/11/21/multiple-controller-domains-in-mininet/
+
+https://networkengineering.stackexchange.com/questions/52812/the-communication-among-multiple-controllers
+
+Esto es lo que necesito: https://sourceforge.net/p/ryu/mailman/message/35785685/
