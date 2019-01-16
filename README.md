@@ -1,4 +1,4 @@
-# Experimento con Faucet ##
+# Experimento con Faucet #
 
 ## Pasos previos ##
 
@@ -56,7 +56,7 @@ sudo docker run \
   google/cadvisor:latest
 ```
 
-## Pasos con Faucet##
+## Pasos con Faucet ##
 
 1. Definir la topologia ([topologia-test.py](topologia-test.py)) y ponerla a funcionar. 
 
@@ -133,11 +133,13 @@ check_faucet_config /etc/faucet/faucet.yaml
 sudo faucet -v --ryu-app simple_switch_13.py
 ```
 
-5. Iniciar gauge:
+6. Iniciar gauge:
 
 ```bash
 sudo gauge -v 
 ```
+
+7. Corroborar que los targets estan up en prometheus:
 
 
 
