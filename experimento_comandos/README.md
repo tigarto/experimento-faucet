@@ -178,5 +178,6 @@ rtt min/avg/max/mdev = 0.070/0.222/0.499/0.196 ms
 
 ## Conclusión ##
 
+Se pudieron mostrar metricas.
 
 
