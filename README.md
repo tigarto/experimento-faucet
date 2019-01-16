@@ -142,4 +142,7 @@ sudo gauge -v
 7. Corroborar que los targets estan up en prometheus:
 
 
-
+**
+Problemas no arreglados:
+1. No nos ha dado lo de el monitoreo con prometheus para la parte de medidas con faucet 
+**
