@@ -28,6 +28,8 @@ Comandos de apoyo (por si acaso):
 2. sudo fuser -k tcp 6653 (https://gist.github.com/happyrobots/1101053)
 3. sudo ovs-vsctl show
 
+Enlaces:
+https://blog.axosoft.com/gitkraken-tips-2/
 '''
 
 from mininet.node import OVSSwitch, Controller, RemoteController
@@ -56,7 +58,7 @@ h3 = net.addDocker('h3', ip='10.0.0.253', dimage="ubuntu-test")                 
 
 # Add switches    
 info('*** Adding switches\n')
-s1 = net.addSwitch('s1')
+s1 = net.addSwitch('s1', protocols='OpenFlow13')
 
 # Add links    
 info('*** Creating links\n')
