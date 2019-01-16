@@ -4,7 +4,7 @@
 
 
 ```bash
-sudo mn --topo single,3 --mac --controller remote
+sudo mn --topo single,3 --mac --controller=remote,ip=127.0.0.1,port=6653 --controller=remote,ip=127.0.0.1,port=6654
 ```
 
 Posteriormente se verifica las caracteristicas del switch creado:
@@ -48,8 +48,42 @@ sudo systemctl restart prometheus
 
 2. Arrancar el faucet y el gauge:
 
+
+El archivo de onfiguracion del faucet para este caso es:
+
+```yaml
+vlans:
+    test_network:
+        vid: 100
+        description: "Red de prueba"
+
+dps:
+    s1:
+        dp_id: 0x0000000000000001
+        hardware: "Open vSwitch"
+        interfaces:
+            1:
+                name: "h1"
+                description: "atacante"
+                native_vlan: test_network
+            2:
+                name: "h2"
+                description: "cliente"
+                native_vlan: test_network
+            3:
+                name: "h3"
+                description: "servidor"
+                native_vlan: test_network
+```
+
+Ahora arrancando la herramienta:
+
+
 ```bash
 # Arrancando el faucet
+sudo systemctl stop faucet
+sudo systemctl disable faucet
+sudo systemctl enable faucet
 sudo faucet -v
 # Arrancando el gauge
 sudo gauge -v
