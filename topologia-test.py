@@ -58,13 +58,13 @@ h3 = net.addDocker('h3', ip='10.0.0.253', dimage="ubuntu-test")                 
 
 # Add switches    
 info('*** Adding switches\n')
-s1 = net.addSwitch('s1', protocols='OpenFlow13')
+sw1 = net.addSwitch('sw1', protocols='OpenFlow13')
 
 # Add links    
 info('*** Creating links\n')
-net.addLink( h1, s1 )
-net.addLink( h2, s1 )
-net.addLink( h3, s1 )
+net.addLink( h1, sw1 )
+net.addLink( h2, sw1 )
+net.addLink( h3, sw1 )
 
 # Build the network
 info('*** Build the network\n')
