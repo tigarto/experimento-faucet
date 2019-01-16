@@ -32,13 +32,13 @@ create_ns host2 192.168.0.2/24
 Configurando el switch:
 
 ```bash
-sudo ovs-vsctl add-br br0 \
--- set bridge s1 other-config:datapath-id=0000000000000001 \
--- set bridge s1 other-config:disable-in-band=true \
--- set bridge s1 fail_mode=secure \
--- add-port s1 veth-host1 -- set interface veth-host1 ofport_request=1 \
--- add-port s1 veth-host2 -- set interface veth-host2 ofport_request=2 \
--- set-controller s1 tcp:127.0.0.1:6653 tcp:127.0.0.1:6654
+sudo ovs-vsctl add-br sw1 \
+-- set bridge sw1 other-config:datapath-id=0000000000000001 \
+-- set bridge sw1 other-config:disable-in-band=true \
+-- set bridge sw1 fail_mode=secure \
+-- add-port sw1 veth-host1 -- set interface veth-host1 ofport_request=1 \
+-- add-port sw1 veth-host2 -- set interface veth-host2 ofport_request=2 \
+-- set-controller sw1 tcp:127.0.0.1:6653 tcp:127.0.0.1:6654
 ```
 
 Posteriormente se verifica las caracteristicas del switch y los host recien creados:
@@ -102,7 +102,41 @@ pipe 4
 sudo systemctl restart prometheus
 ```
 
-2. Arrancar el faucet y el gauge:
+2. Recargar el archivo de configuración del faucet:
+
+
+A continuacion se muestra el archivo de configuración del faucet:
+
+```yaml
+vlans:
+    office:
+        vid: 100
+        description: "office network"
+
+dps:
+    sw1:
+        dp_id: 0x1
+        hardware: "Open vSwitch"
+        interfaces:
+            1:
+                name: "host1"
+                description: "host1 network namespace"
+                native_vlan: office
+            2:
+                name: "host2"
+                description: "host2 network namespace"
+                native_vlan: office
+```
+
+El comando para recargar el archivo se muestra a continuación:
+
+```bash
+sudo systemctl stop faucet
+sudo systemctl disable faucet
+sudo systemctl enable faucet
+```
+
+3. Arrancar el faucet y el gauge:
 
 ```bash
 # Arrancando el faucet
@@ -127,7 +161,22 @@ rtt min/avg/max/mdev = 0.070/0.222/0.499/0.196 ms
 
 ```
 
+4. Las siguientes imagenes muestran diferenetes resultados de tomar metricas:
+
+* **Panel de inventario**:
+
+![inventory](inventory.png)
+
+* **Panel de instrumentación**:
+
+![instrumentation](instrumentation.png)
+
+* **Panel de estadisticas de puertos**:
+
+![port_statistics](port_statistics.png)
+
+
 ## Conclusión ##
-El error que se esta intentando evitar aun permanece. Se va a intentar trabajar en un ambiente virtual.
+
 
 
