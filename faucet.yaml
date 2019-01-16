@@ -4,8 +4,8 @@ vlans:
         description: "Red de prueba"
 
 dps:
-    sw1:
-        dp_id: 0x1
+    s1:
+        dp_id: 0x0000000000000001
         hardware: "Open vSwitch"
         interfaces:
             1:
