@@ -121,4 +121,23 @@ dps:
                 native_vlan: test_network
 ```
 
-4. Iniciar faucet:
+4. Chequear el archivo de configuración de faucet:
+
+```bash
+check_faucet_config /etc/faucet/faucet.yaml
+```
+
+5. Iniciar faucet:
+
+```bash
+sudo faucet -v --ryu-app simple_switch_13.py
+```
+
+5. Iniciar gauge:
+
+```bash
+sudo gauge -v 
+```
+
+
+
