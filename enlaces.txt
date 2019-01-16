@@ -113,3 +113,28 @@ https://anothertla.wordpress.com/2015/11/21/multiple-controller-domains-in-minin
 https://networkengineering.stackexchange.com/questions/52812/the-communication-among-multiple-controllers
 
 Esto es lo que necesito: https://sourceforge.net/p/ryu/mailman/message/35785685/
+
+
+
+https://github.com/Thien-projects/sdn-mon/tree/master/lagopus-0.2.10-sdnmon
+https://github.com/OverFlowJAMK/General/wiki/Multiple-OVS-switches-within-single-host
+https://www.nanog.org/meetings/nanog57/presentations/Monday/mon.tutorial.SmallWallace.OpenFlow.24.pdf
+https://wiki.opendaylight.org/view/OVSDB_Integration:Mininet_OVSDB_Tutorial
+https://mik.bme.hu/~zfaigl/QoS/doc/README.html
+https://blog.sflow.com/2013/12/ovs-ofctl.html
+
+
+http://mbat-cctu.nsysu.edu.tw/data/SDN_NFV_class/SDN_Lab1.pdf
+
+http://pld.cs.luc.edu/courses/netmgmt/sum17/notes/mininet_and_pox.html
+
+http://dept-info.labri.fr/~magoni/rvep/TD-DOCKER-OVS.pdf
+
+http://trainer.edu.mirantis.com/SDN50/ovs.html
+https://eclass.uoa.gr/modules/document/file.php/D73/%CE%95%CF%81%CE%B3%CE%B1%CF%83%CE%AF%CE%B5%CF%82/%CE%95%CE%A1%CE%93%CE%91%CE%A3%CE%99%CE%91%20%CE%94%CE%99%CE%91%CE%A7%CE%95%CE%99%CE%A1%CE%99%CE%A3%CE%97%CE%A3%20%CE%94%CE%99%CE%9A%CE%A4%CE%A5%CE%A9%CE%9D%202018/Mininet_wifi.pdf
+
+--------------------------------------------
+
+Enlaces: 05/01/2018
+
+
