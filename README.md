@@ -33,5 +33,5 @@ sudo sudo ovs-vsctl show
 
 3. El controlador que se empleará sera el faucet cuya arquitectura se muestra a continuación. 
 
-
+![arquitectura_faucet](arquitectura_faucet.png)
 
