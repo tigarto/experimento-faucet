@@ -1,4 +1,7 @@
-# Experimento con Mininet #
+# Experimento con Contenedores #
+
+
+
 
 1. Crear la topologia
 
@@ -7,30 +10,7 @@
 sudo python topologia-test.py 
 ```
 
-Posteriormente se verifica las caracteristicas del switch creado:
-
-```bash
-# Comando
-sudo ovs-vsctl show
-# Salida
-9ec06414-9bd9-4579-81d4-8e7801c2eb61
-    Bridge "s1"
-        Controller "ptcp:6634"
-        Controller "tcp:127.0.0.1:6653"
-        fail_mode: secure
-        Port "s1-eth1"
-            Interface "s1-eth1"
-        Port "s1"
-            Interface "s1"
-                type: internal
-        Port "s1-eth3"
-            Interface "s1-eth3"
-        Port "s1-eth2"
-            Interface "s1-eth2"
-    ovs_version: "2.5.5"
-```
-
-Si se aplica ping vemos que no hay:
+Si se aplica ping vemos que no hay conectividad entre los contenedores:
 
 ```bash
 containernet> pingall
@@ -49,8 +29,7 @@ sudo systemctl restart prometheus
 
 2. Arrancar el contenedor asociado al faucet:
 
-
-El archivo de configuracion del faucet para este caso es (/etc/faucet/faucet.yml):
+Teniendo definido el archivo de ciguración de faucet (/etc/faucet/faucet.yml) de acuerdo a la topologia de red tal y como se muestra en el siguiente archivo **faucet.yaml**:
 
 ```yaml
 vlans:
@@ -79,9 +58,8 @@ dps:
 
 Ahora arrancando la herramienta:
 
-
 ```bash
-# Arrancando el faucet
+# Arrancar el faucet
 sudo docker run -d \
     --name faucet \
     --restart=always \
@@ -90,15 +68,12 @@ sudo docker run -d \
     -p 6653:6653 \
     -p 9302:9302 \
     faucet/faucet
-
-# Arrancando el gauge
-sudo gauge -v
 ```
 
 3. Arrancar el contenedor asociado al gauge:
 
 ```bash
-# Arrancando el gauge
+# Arrancar el gauge
 sudo docker run -d \
     --name gauge \
     --restart=always \
@@ -112,7 +87,7 @@ sudo docker run -d \
 4. Arrancar el contenedor asociado al cAdvisor:
 
 ```bash
-# Arrancando el cadvisor
+# Arrancar el cadvisor
 sudo docker run \
   --volume=/:/rootfs:ro \
   --volume=/var/run:/var/run:ro \
@@ -125,13 +100,7 @@ sudo docker run \
   google/cadvisor:latest
 ```
 
-
-5. Veridicar targets
-
-
-
-
-Se puede verificar que ya hay ping:
+5. Verificar la conectividad entre los host de mininet:
 
 ```bash
 containernet> pingall
@@ -142,7 +111,30 @@ h3 -> h1 h2
 *** Results: 0% dropped (6/6 received)
 ```
 
-Bajar contenedores:
+6. Verificar targets de los que se obtienen las graficas en protetheus:
+
+![targets](targets.png)
+
+7. Observar los dasboard con las medidas:
+
+* Panel de cAdvisor:
+
+![cadvisor](cadvisor.png)
+
+* Panel de inventario:
+
+![inventory](inventory.png)
+
+* Panel de instrumentación de los controladores:
+
+![instrumentation](instrumentation.png)
+
+* Panel con metricas de los puertos:
+
+![port_statistics](port_statistics.png)
+
+
+7. Bajar contenedores cuando culminen las pruebas:
 
 ```bash
 sudo docker stop gauge
@@ -153,6 +145,26 @@ sudo docker rm gauge
 sudo docker rm faucet
 ```
 
+## Algunas metricas ##
+
+En el siguiente [enlace](https://docs.faucet.nz/en/latest/monitoring.html) se muestran algunas de las metricas:
+1. Exportadas por gauge:
+   * of_port_tx_bytes
+   * of_port_rx_bytes
+   * of_port_rx_packets
+   * of_port_tx_packets
+   * of_port_rx_dropped
+   * of_port_tx_dropped
+   * of_errors_total
+2. Exportadas por faucet:
+   * faucet_packet_in_secs
+   * learned_macs
+   * port_status
+   * dp_status
+   * of_dp_desc_stats
+   * of_ignored_packet_ins_total
+   * of_packet_ins_total
+   * of_flowmsgs_sent_total
 
 ## Conclusión ##
 El error que se esta intentando evitar aun permanece. Se va a intentar trabajar en un ambiente virtual.
