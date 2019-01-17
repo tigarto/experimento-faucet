@@ -1,7 +1,27 @@
 # Experimento con Contenedores #
 
 
+## Algunos enlaces de utilidad ##
 
+Los siguientes enlaces pueden ser de utilidad:
+1. [FAUCET - The open source SDN Control Plane for production networks](http://www.openvswitch.org/support/ovscon2016/8/1450-mysore.pdf)
+2. [Deploying FAUCET in the Enterprise](https://conference.faucet.nz/slides/Brad%20Cowie%20-%20Deploying%20FAUCET%20in%20the%20Enterprise.pdf)
+3. [Faucet : Openflow SDN Made Easy](https://www.ausnog.net/sites/default/files/ausnog-2018/presentations/1.8_Richard_Nelson_AusNOG2018.pdf)
+4. [OpenFlow is not dead - SDN Demo using Faucet controller](https://inog.net/files/iNOGB-Costi-Openflow.pdf)
+5. [List of SDN controller software](https://en.wikipedia.org/wiki/List_of_SDN_controller_software)
+6. [Faucet - The Open Source Production Quality OpenFlow Switch](https://wand.nz/~brad/talks/faucet.pdf)
+7. [How I run a production, multivendor, enterprise Software Defined Network ...and why you should too](https://networkshop.aarnet.edu.au/content/uploads/2017/06/SDN-Brad-Cowie.pdf)
+8. [Software Defined Networking and Security](https://www.troopers.de/wp-content/uploads/2014/03/TROOPERS14-Security_and_SDN-A_perfect_fit_or_oil-and-water-Ivan_Pepelnjak.pdf)
+9. [A Business Process for Deploying an SDN Enterprise Network](https://meetings.internet2.edu/media/medialibrary/2017/10/17/20171017-miteff-sdn-a-business-process-to-deploy.pdf)
+10. [Protocolos de comunicaciones SDN (Software Defined Networking) en un laboratorio portable de redes de ordenadores](http://mobiquo.gsyc.es/lab-sdn/enunciado.pdf)
+
+## Arquitectura basica de Faucet ##
+
+A continuación se muestra la arquitectua de Faucet:
+
+![architecture](architecture.png)
+
+## Descripción del proceso experimental
 
 1. Crear la topologia
 
@@ -9,6 +29,10 @@
 ```bash
 sudo python topologia-test.py 
 ```
+
+La topologia definida se muestra en la siguiente figura:
+
+![topologia](topologia.png)
 
 Si se aplica ping vemos que no hay conectividad entre los contenedores:
 
