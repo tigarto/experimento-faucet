@@ -83,6 +83,7 @@ sudo python topologia-test.py
 
 3. Arranque del monitor de los contenedores:
 
+```bash
 # Arrancar el cadvisor
 sudo docker run \
   --volume=/:/rootfs:ro \
@@ -94,6 +95,7 @@ sudo docker run \
   --detach=true \
   --name=cadvisor \
   google/cadvisor:latest
+```
 
 4. Arranque del controlador faucet:
 
@@ -163,9 +165,25 @@ Las siguientes son las URL para acceder a las herramientas de monitoreo:
 2. **Grafana**: localhost.3000
 3. **cAdvisor**: localhost.8080
 
+
+## Caracteristicas del experimento ##
+
+```
+h1: kwargs {'ip': '10.0.0.251'}
+h1: update resources {'cpu_quota': -1}
+h2: kwargs {'ip': '10.0.0.252'}
+h2: update resources {'cpu_quota': -1}
+h3: kwargs {'ip': '10.0.0.253'}
+```
+
+
 **Experimento 1**:
 
-1. Se hacen 20 pings y se obtienen los resultados.
+1. Se hacen 20 pings y se obtienen los resultados. Uno por cada host
+
+
+
+
 
 Hora aproximada (19.35)
 
@@ -181,4 +199,5 @@ Hora aproximada (19.35)
 6. [caesar0301/awesome-pcaptools](https://github.com/caesar0301/awesome-pcaptools)
 7. [Awesome PCAP Tools](http://xiaming.me/awesome-pcaptools/)
 8. [Network Traffic and Intrusion Simulations](https://edux.fit.cvut.cz/oppa/MI-SIB/prednasky/mi-sib-p06-NetworkSimulations.pdf)
+9. [Tarea N°1: Mininet](http://profesores.elo.utfsm.cl/~agv/elo323/2s15/Assignments/Mininet.pdf)
 
