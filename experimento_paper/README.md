@@ -8,7 +8,7 @@
 
 1. [**faucet.yaml**](faucet.yaml): tiene la siguiente ruta: /etc/faucet/faucet.yaml
 
-```yml
+```yaml
 vlans:
     test_network:
         vid: 100
@@ -35,6 +35,7 @@ dps:
 
 2. [**prometheus.yml**](prometheus.yml): tiene la siguiente rura: /etc/faucet/prometheus/prometheus.yml. Tambien, maneja la siguiente IP (de la interafaz de red inalambrica en el caso): wlp2s0 = 192.168.1.3. 
 
+```yml
 # my global config
 global:
   scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
@@ -61,6 +62,7 @@ scrape_configs:
   - job_name: 'cadvisor'
     static_configs:
       - targets: ['192.168.1.3:8080']
+```
 
 ## Pasos para la realización de la prueba ##
 
