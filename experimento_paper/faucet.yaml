@@ -1,0 +1,22 @@
+vlans:
+    test_network:
+        vid: 100
+        description: "Red de prueba"
+
+dps:
+    sw1:
+        dp_id: 0x0000000000000001
+        hardware: "Open vSwitch"
+        interfaces:
+            1:
+                name: "h1"
+                description: "atacante"
+                native_vlan: test_network
+            2:
+                name: "h2"
+                description: "cliente"
+                native_vlan: test_network
+            3:
+                name: "h3"
+                description: "servidor"
+                native_vlan: test_network
