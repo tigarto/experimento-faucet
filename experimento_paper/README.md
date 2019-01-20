@@ -115,6 +115,7 @@ sudo docker run -d \
 
    2. Arranque del gauge:
 
+```bash
 # Arrancar el gauge
 sudo docker run -d \
     --name gauge \
