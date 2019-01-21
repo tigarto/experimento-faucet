@@ -66,22 +66,33 @@ scrape_configs:
 
 ## Pasos para la realización de la prueba ##
 
-1. Reinicio del protheus:
+### Opcionales ###
+
+1. Reiniciar del protheus:
 
 ```bash
 # Reinicio del prometheus
 sudo systemctl restart prometheus
 ```
+Este comando solo es necesario cuando se cambie el archivo **prometheus.yml**
 
-2. Arranque de la topologia:
+### Para el experimento ###
+
+1. Arranque de la topologia:
 
 ```bash
 # Arrancar el faucet
 sudo python topologia-test.py
 ```
 
+2. Arrancar el wireshark eligiendo las interfaces en las cuales se analizara el trafico. Para nuestro caso estas seran: Loopback (Lo), sw1-eth1, sw1-eth2 y sw1-eth3.
 
-3. Arranque del monitor de los contenedores:
+```bash
+# Arrancar el wireshark
+sudo wireshark
+```
+
+3. Arranque del monitor de los contenedores (cAdvisor):
 
 ```bash
 # Arrancar el cadvisor
@@ -201,4 +212,7 @@ Hora aproximada (19.35)
 7. [Awesome PCAP Tools](http://xiaming.me/awesome-pcaptools/)
 8. [Network Traffic and Intrusion Simulations](https://edux.fit.cvut.cz/oppa/MI-SIB/prednasky/mi-sib-p06-NetworkSimulations.pdf)
 9. [Tarea N°1: Mininet](http://profesores.elo.utfsm.cl/~agv/elo323/2s15/Assignments/Mininet.pdf)
-
+10. [Assignment 1: Sockets, Mininet, & Performance](http://pages.cs.wisc.edu/~agember/cs640/s15/assign1/)
+11. [D-ITG V. 2.6.1d Manual](http://www.grid.unina.it/software/ITG/manual/D-ITG2.6.1d-manual.pdf)
+12. [Software Defined Network (SDN) --- Mininet, OVS, P4 switch, POX, RYU Learning Guide](http://csie.nqu.edu.tw/smallko/sdn/sdn.htm)
+13. [THE (IN)SECURITY OF TOPOLOGY DISCOVERY IN OPENFLOW-BASED SOFTWARE DEFINED NETWORK](https://pdfs.semanticscholar.org/8278/7dfd17341612bd57e41f561ac82a770ba59c.pdf)
