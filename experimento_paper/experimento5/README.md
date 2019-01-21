@@ -2,10 +2,11 @@
 
 ## Resumen ##
 
-Ataque por flooding
+Ataque por spoofing
 
 ## Comandos a emplear ##
 
+Inicialmente se hara un pingall
 
 Consola del servidor h3 donde IP(h3) = 10.0.0.253 
 
