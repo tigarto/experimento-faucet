@@ -1,0 +1,5 @@
+﻿sep=;
+"Time";"sw1 port h1 (atacante) in";"sw1 port h2 (cliente) in";"sw1 port h3 (servidor) in";"sw1 port h1 (atacante) out";"sw1 port h2 (cliente) out";"sw1 port h3 (servidor) out"
+"2019-01-21T17:29:00-05:00";0;0.022;0;-0.067;-0.022;-0.067
+"2019-01-21T17:29:30-05:00";0;0;0.022;-0.044;-0.044;-0.022
+"2019-01-21T17:30:00-05:00";1.2;0.178;1.178;-2.2;-0.933;-2.2
