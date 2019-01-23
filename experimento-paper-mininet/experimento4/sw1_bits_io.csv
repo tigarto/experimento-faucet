@@ -1,0 +1,8 @@
+﻿sep=;
+"Time";"sw1 port h1 (atacante) in";"sw1 port h2 (cliente) in";"sw1 port h3 (servidor) in";"sw1 port h1 (atacante) out";"sw1 port h2 (cliente) out";"sw1 port h3 (servidor) out"
+"2019-01-23T02:22:00-05:00";null;null;null;null;null;null
+"2019-01-23T02:22:30-05:00";null;null;null;null;null;null
+"2019-01-23T02:23:00-05:00";null;null;null;null;null;null
+"2019-01-23T02:23:30-05:00";43,970,144.75;21.012;157,278.147;-157,299.159;-157,299.159;-43,970,165.763
+"2019-01-23T02:24:00-05:00";77,170,745.244;12.444;279,512.178;-279,573.156;-279,573.156;-77,170,806.222
+"2019-01-23T02:24:30-05:00";0;0;0;0;0;0
