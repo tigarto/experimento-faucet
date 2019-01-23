@@ -1,0 +1,29 @@
+http://csie.nqu.edu.tw/smallko/sdn/iperf_mininet.htm
+
+ninet/experimento2$ sudo python topologia-test.py 
+*** Create the controller 
+*** Adding switches
+*** Creating links
+*** Build the network
+*** Configuring hosts
+h1 h2 h3 
+*** Starting network
+*** Starting controller
+c0 c1 
+*** Starting 1 switches
+sw1 ...
+Start : Tue Jan 22 12:34:33 2019
+*** Iperf: testing TCP bandwidth between h1 and h3 
+.*** Results: ['34.6 Gbits/sec', '34.7 Gbits/sec']
+End : Tue Jan 22 12:35:28 2019
+*** Stopping network*** Stopping 2 controllers
+c0 c1 
+*** Stopping 3 links
+...
+*** Stopping 1 switches
+sw1 
+*** Stopping 3 hosts
+h1 h2 h3 
+*** Done
+*** Removing NAT rules of 0 SAPs
+
