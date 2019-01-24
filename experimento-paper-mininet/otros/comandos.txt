@@ -1,0 +1,198 @@
+https://wand.nz/~brad/talks/faucet-lca2019.pdf
+
+
+sudo faucet
+
+loading app faucet.faucet
+loading app ryu.controller.ofp_handler
+instantiating app None of DPSet
+creating context dpset
+creating context faucet_experimental_api
+instantiating app ryu.controller.ofp_handler of OFPHandler
+instantiating app faucet.faucet of Faucet
+(6565) wsgi starting up on http://0.0.0.0:9302
+
+------------------------------------------------------
+
+sudo faucet -v
+
+loading app faucet.faucet
+loading app ryu.controller.ofp_handler
+creating context faucet_experimental_api
+instantiating app None of DPSet
+creating context dpset
+instantiating app faucet.faucet of Faucet
+instantiating app ryu.controller.ofp_handler of OFPHandler
+BRICK Faucet
+  CONSUMES EventFaucetStateExpire
+  CONSUMES EventDP
+  CONSUMES EventOFPDescStatsReply
+  CONSUMES EventOFPPortStatus
+  CONSUMES EventFaucetMetricUpdate
+  CONSUMES EventFaucetResolveGateways
+  CONSUMES EventFaucetAdvertise
+  CONSUMES EventOFPPacketIn
+  CONSUMES EventReconfigure
+  CONSUMES EventOFPFlowRemoved
+  CONSUMES EventFaucetFastAdvertise
+  CONSUMES EventFaucetFastStateExpire
+  CONSUMES EventOFPSwitchFeatures
+  CONSUMES EventDPReconnected
+  CONSUMES EventOFPErrorMsg
+BRICK dpset
+  PROVIDES EventDP TO {'Faucet': {'dpset'}}
+  PROVIDES EventDPReconnected TO {'Faucet': {'dpset'}}
+  CONSUMES EventOFPSwitchFeatures
+  CONSUMES EventOFPStateChange
+  CONSUMES EventOFPPortStatus
+BRICK ofp_event
+  PROVIDES EventOFPErrorMsg TO {'Faucet': {'main'}}
+  PROVIDES EventOFPStateChange TO {'dpset': {'main', 'dead'}}
+  PROVIDES EventOFPFlowRemoved TO {'Faucet': {'main'}}
+  PROVIDES EventOFPPortStatus TO {'Faucet': {'main'}, 'dpset': {'main'}}
+  PROVIDES EventOFPSwitchFeatures TO {'Faucet': {'config'}, 'dpset': {'config'}}
+  PROVIDES EventOFPDescStatsReply TO {'Faucet': {'main'}}
+  PROVIDES EventOFPPacketIn TO {'Faucet': {'main'}}
+  CONSUMES EventOFPPortDescStatsReply
+  CONSUMES EventOFPEchoReply
+  CONSUMES EventOFPHello
+  CONSUMES EventOFPPortStatus
+  CONSUMES EventOFPSwitchFeatures
+  CONSUMES EventOFPEchoRequest
+  CONSUMES EventOFPErrorMsg
+(6603) wsgi starting up on http://0.0.0.0:9302
+EVENT Faucet->Faucet EventFaucetMetricUpdate
+EVENT Faucet->Faucet EventFaucetResolveGateways
+EVENT Faucet->Faucet EventFaucetStateExpire
+EVENT Faucet->Faucet EventFaucetAdvertise
+EVENT Faucet->Faucet EventFaucetFastStateExpire
+EVENT Faucet->Faucet EventFaucetFastAdvertise
+EVENT Faucet->Faucet EventFaucetFastStateExpire
+EVENT Faucet->Faucet EventFaucetResolveGateways
+EVENT Faucet->Faucet EventFaucetMetricUpdate
+EVENT Faucet->Faucet EventFaucetStateExpire
+EVENT Faucet->Faucet EventFaucetFastStateExpire
+EVENT Faucet->Faucet EventFaucetFastAdvertise
+EVENT Faucet->Faucet EventFaucetResolveGateways
+
+------
+
+faucet --ryu-app simple_switch_13.py
+
+tigarto@fuck-pc:~/Documents/tesis_2018-2/experimento-faucet/experimento-paper-mininet/otros$ sudo faucet --ryu-app simple_switch_13.py
+loading app faucet.faucet
+loading app simple_switch_13.py
+loading app ryu.controller.ofp_handler
+instantiating app None of DPSet
+creating context dpset
+creating context faucet_experimental_api
+instantiating app faucet.faucet of Faucet
+instantiating app ryu.controller.ofp_handler of OFPHandler
+instantiating app simple_switch_13.py of SimpleSwitch13
+(6660) wsgi starting up on http://0.0.0.0:9302
+
+
+-------
+
+
+
+faucet [-h] [--gauge] [-v] [-V] [--use-stderr] [--use-syslog]
+              [--ryu-app APP] [--ryu-ca-certs RYU_CA_CERTS]
+              [--ryu-config-dir RYU_CONFIG_DIR]
+              [--ryu-config-file RYU_CONFIG_FILE]
+              [--ryu-ctl-cert RYU_CTL_CERT]
+              [--ryu-ctl-privkey RYU_CTL_PRIVKEY]
+              [--ryu-default-log-level RYU_DEFAULT_LOG_LEVEL]
+              [--ryu-log-config-file RYU_LOG_CONFIG_FILE]
+              [--ryu-log-dir RYU_LOG_DIR] [--ryu-log-file RYU_LOG_FILE]
+              [--ryu-log-file-mode RYU_LOG_FILE_MODE]
+              [--ryu-observe-links RYU_OBSERVE_LINKS]
+              [--ryu-ofp-listen-host RYU_OFP_LISTEN_HOST]
+              [--ryu-ofp-ssl-listen-port RYU_OFP_SSL_LISTEN_PORT]
+              [--ryu-ofp-switch-address-list RYU_OFP_SWITCH_ADDRESS_LIST]
+              [--ryu-ofp-switch-connect-interval RYU_OFP_SWITCH_CONNECT_INTERVAL]
+              [--ryu-ofp-tcp-listen-port RYU_OFP_TCP_LISTEN_PORT]
+              [--ryu-pid-file RYU_PID_FILE] [--ryu-user-flags RYU_USER_FLAGS]
+              [--ryu-wsapi-host RYU_WSAPI_HOST]
+              [--ryu-wsapi-port RYU_WSAPI_PORT]
+
+
+***************************************************************************************************************************
+
+RETOMANDO RYU:
+https://github.com/osrg/ryu/wiki
+https://osrg.github.io/ryu-book/en/html/
+
+sudo mn --topo single,3 --mac --switch ovsk --controller remote
+
+
+tcpdump -XX -n -i h3-eth0
+tcpdump -XX -n -i h4-eth0
+
+ping -c1 10.0.0.3
+
+ping -c1 10.0.0.5
+
+
+http://ryu.readthedocs.org/en/latest/writing_ryu_app.html
+  https://www.python.org/dev/peps/pep-0318/
+  https://wiki.python.org/moin/PythonDecorators
+
+https://github.com/tigarto/sdn_repaso/tree/master/code/dia7
+
+https://github.com/tigarto/sdn_repaso/tree/master/code/dia7/ryu_examples/ryu_book
+
+https://sharkfestus.wireshark.org/assets/presentations16/32.pdf
+
+
+https://github.com/shao-you/SDN-Traceroute
+http://ericrozner.com.s3.amazonaws.com/papers/sdn-traceroute-hotsdn-2014-final.pdf
+
+----
+
+https://github.com/nathancatania/ryurest
+
+https://www.udemy.com/learn-sdn-with-mininet-ryu-exercises/
+
+https://github.com/haidarns/ryu-firewall-ui
+
+https://blog.sflow.com/2016/05/mininet-flow-analytics.html
+
+https://blog.sflow.com/2018/08/
+
+https://www.juniper.net/documentation/en_US/junos/topics/reference/command-summary/show-openflow-statistics-flows.html
+
+https://wiki.opendaylight.org/view/OpenDaylight_OpenFlow_Plugin:Statistics
+
+---------------------------------
+
+
+https://prometheus.io/docs/instrumenting/exporters/
+https://www.google.com/search?q=prometheus+openflow+exporter&tbm=isch&source=hp&sa=X&ved=2ahUKEwjolprb3YXgAhWPo1kKHTL6DNwQsAR6BAgCEAE
+
+https://events.linuxfoundation.org/wp-content/uploads/2017/12/Kubernetes-Networking-Made-Easy-with-Open-vSwitch-and-OpenFlow-P%C3%A9ter-Megyesi-LeanNet-ltd..pdf
+
+https://github.com/dunlinplugin/ovs-exporter
+
+
+https://github.com/gopher-net/docker-ovs-plugin
+
+***************************
+
+En la carpeta home:
+https://github.com/ovnworks/ovs_exporter
+https://github.com/leannetworking/ovs-exporter
+
+https://github.com/joatmon08/ovs_exporter   ***
+
+
+
+https://github.com/tigarto/test-diarios/commit/2eed0b810fe5078582f117772beb56fabba764aa
+
+
+
+
+https://github.com/tigarto/test-diarios/tree/2eed0b810fe5078582f117772beb56fabba764aa/junio/junio_06
+
+
+
