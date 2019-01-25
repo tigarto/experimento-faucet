@@ -1,5 +1,6 @@
+# Reporte 1 #
 
-
+* **Fecha**: 25/01/2019
 
 ## Controlador Faucet ##
 
@@ -114,6 +115,89 @@ A continuación se describen los pasos mas basicos para llevar a cabo el experim
 4. Mirar los resultados en grafana.
 5. Arrancar mininet
 
+### Algunas pruebas ###
+
+1. Prueba de conectividad: 
+
+```bash
+# Terminal mininet
+pingall
+```
+
+2. Prueba de ping fijo: 
+
+```bash
+# Terminal mininet
+h1 ping -c 200 -i 0.5 h3
+```
+
+3. Prueba iperf. [Enlace util](https://support.cumulusnetworks.com/hc/en-us/articles/216509388-Throughput-Testing-and-Troubleshooting):
+
+```bash
+# Terminal h3
+iperf -s -p 5003
+```
+
+```bash
+# Terminal h1
+iperf3 -c 10.0.0.253 p 5003 -i 1 -t 200 
+```
+
+4. Prueba con el ataque:
+
+**Caso 1**: Sin el iperf
+
+```bash
+# Terminal h1 (atacante)
+hping3 --flood --rand-source 10.0.0.253
+```
+
+Opcionalmente, con el fin de ver si se ve comprometida la conectividad, se puede hacer unos cuantos pings entre el cliente y el servidor.
+
+```bash
+# Terminal mininet
+h1 ping -c 100 -i 0.5 h3
+```
+
+**Caso 2**: Sin el iperf
+
+```bash
+# Terminal h3 (servidor)
+iperf -s -p 5003
+```
+```bash
+# Terminal h2 (cliente)
+iperf3 -c 10.0.0.253 p 5003 -i 1 -t 200 
+```
+
+```bash
+# Terminal h3 (atacante)
+hping3 --flood --rand-source 10.0.0.253
+```
+
+Aun tengo muchas dudas con el iperf entre estas:
+* ¿iperf mide el ancho de banda del canal en cuestion solamente libre o lo que hay en general?
+* ¿Esta prueba si tiene validez?
+* ¿Con que otra herramienta se puede emular trafico realista?
+
+## Conclusiones ##
+
+1. Un estudio mas a fondo sobre el faucet vale la pena. Al ser basado en ryu es muy probable que el background que se tiene hasta el momento no se pierda.
+2. El desarrollo de aplicaciones desde este controlador puede ser llevado de tres maneras:
+   * El desarrollo de una aplicación en el top de faucet que entregue a faucet un nuevo archivo de configuración y que pida a faucet que la aplique.
+   * Modificar el codigo del controlador (Ryu en el caso) directamente para agregar una caracteristica deseada.
+   * Agregar algun API conveniente a las necesidades del operador (por ejemplo, integrar el BroIDS).
+3. El monitoreo es enormemente facilitado.
+
+
+## Pendientes ##
+
+1. Graficas para llevar a cabo el analisis.
+2. Mirar la herramienta para producir trafico de red.
+3. Cualquier otra sugerencia de los jefes.
+
+
+## Referencias ##
 
 
 
