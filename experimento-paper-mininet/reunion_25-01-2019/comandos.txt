@@ -1,0 +1,71 @@
+
+
+
+Ruta: ~/Documents/tesis_2018-2/experimento-faucet/experimento-paper-mininet/reunion_25-01-2019
+
+---------------------------------------------------------------------------------------
+
+sudo docker run -it \
+    --name faucet \
+    --restart=always \
+    -v /etc/faucet/:/etc/faucet/ \
+    -v /var/log/faucet/:/var/log/faucet/ \
+    -p 6653:6653 \
+    -p 9302:9302 \
+    -p 8080:8080 \
+    faucet/faucet \
+    bash
+
+
+bash-4.4# find / -name simple_switch_13.py
+
+
+cd /usr/lib/python3.6/site-packages/ryu/app 
+faucet --ryu-app ofctl_rest.py
+
+---------------------------------------------------------------------------------------
+
+sudo docker run -it \
+    --name gauge \
+    --restart=always \
+    -v /etc/faucet/:/etc/faucet/ \
+    -v /var/log/faucet/:/var/log/faucet/ \
+    -p 6654:6653 \
+    -p 9303:9303 \
+    faucet/gauge \
+    bash
+
+gauge
+
+-------------------------------------------------------------------------------------
+
+sudo python topologia-test.py
+
+Fuera:
+
+Api Resful: https://ryu.readthedocs.io/en/latest/app/ofctl_rest.html#get-all-switches
+
+
+curl -X GET http://localhost:8080/stats/switches
+
+
+Get all flows stats
+
+
+/stats/flow/<dpid>
+
+
+--------------------------------------------------------------------------------------
+
+
+REFERENCIAS.
+
+https://github.com/TUDelftNAS?tab=repositories
+https://wiki.mikrotik.com/wiki/Manual:Tools/Traffic_Generator
+
+
+
+
+
+
+
