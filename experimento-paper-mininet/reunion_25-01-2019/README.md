@@ -110,12 +110,61 @@ net.stop()
 
 A continuación se describen los pasos mas basicos para llevar a cabo el experimento:
 1. Arrancar el faucet.
+
+```bash
+# Arrancando el bash del contenedor faucet
+sudo docker run -it \
+    --name faucet \
+    --restart=always \
+    -v /etc/faucet/:/etc/faucet/ \
+    -v /var/log/faucet/:/var/log/faucet/ \
+    -p 6653:6653 \
+    -p 9302:9302 \
+    -p 8080:8080 \
+    faucet/faucet \
+    bash
+
+# Ejecutando faucet con la aplicacion ofctl_rest para hacer consultas restful
+find / -name ofctl_rest.py
+cd /usr/lib/python3.6/site-packages/ryu/app 
+faucet --ryu-app ofctl_rest.py
+```
+
 2. Arrancar el gauge.
-3. Verificar en el prometheus que los targets este listos.
-4. Mirar los resultados en grafana.
+
+```bash
+# Arrancando el basf el contenedor gauge
+sudo docker run -it \
+    --name gauge \
+    --restart=always \
+    -v /etc/faucet/:/etc/faucet/ \
+    -v /var/log/faucet/:/var/log/faucet/ \
+    -p 6654:6653 \
+    -p 9303:9303 \
+    faucet/gauge \
+    bash
+
+# Ejecutando el gauge
+gauge
+```
+3. Verificar en el prometheus que los targets este listos. Para ello se da la URL: http://localhost:9090/targets
+
+4. Mirar los resultados en grafana. Para lo cual se mira los dasboards disponibles en http://localhost:3000
+
 5. Arrancar mininet
 
+```bash
+sudo python topologia-test.py 
+```
+
+## Algunas consultas hechas por el RESTUL API:
+
+
+
+
 ### Algunas pruebas ###
+
+1. Prueba antes de establecer comandos:
 
 1. Prueba de conectividad: 
 
@@ -163,11 +212,11 @@ h1 ping -c 100 -i 0.5 h3
 
 ```bash
 # Terminal h3 (servidor)
-iperf -s -p 5003
+iperf3 -s -p 5003
 ```
 ```bash
 # Terminal h2 (cliente)
-iperf3 -c 10.0.0.253 p 5003 -i 1 -t 200 
+iperf3 -c 10.0.0.253 -p 5003 -i 1 -t 200 
 ```
 
 ```bash
@@ -196,6 +245,51 @@ Aun tengo muchas dudas con el iperf entre estas:
 2. Mirar la herramienta para producir trafico de red.
 3. Cualquier otra sugerencia de los jefes.
 
+## Desorden ##
+
+Del articulo **SOFTmon - Traffic Monitoring for SDN** en la siguiente tabla se muestran algunas metricas
+
+![metricas](metricas.png)
+
+Switch Stats:
+
+http://localhost:8080/stats/aggregateflow/<dpid>
+
+Agregate Get aggregate flow stats
+
+http://localhost:8080/stats/aggregateflow/1
+
+
+{
+    "1": [
+        {
+            "packet_count": 123,
+            "byte_count": 9306,
+            "flow_count": 19
+        }
+    ]
+}
+
+Get aggregate flow stats filtered by fields (POST)
+
+http://localhost:8080/stats/aggregateflow/<dpid>
+
+
+Get table stats
+
+****
+
+Port Stats
+
+Get table stats
+
+https://floodlight.atlassian.net/wiki/spaces/floodlightcontroller/pages/15040523/How+to+Use+OpenFlow+Meters
+
+https://blog.sflow.com/2013/08/northbound-apis-for-traffic-engineering.html
+
+https://blog.sflow.com/2013/05/software-defined-analytics.html
+
+
 
 ## Referencias ##
 
@@ -204,5 +298,6 @@ Aun tengo muchas dudas con el iperf entre estas:
 1. [Faucet Deploying SDN in the Enterprise](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45641.pdf)
 2. [Informacion Faucet](https://github.com/faucetsdn/faucet.nz)
 3. [Faucet - The Open Source Production Quality OpenFlow Switch](https://wand.nz/~brad/talks/faucet.pdf)
-4. https://www.ausnog.net/sites/default/files/ausnog-2018/presentations/1.8_Richard_Nelson_AusNOG2018.pdf
-5. https://www.gdt.id.au/~gdt/presentations/2016-07-05-questnet-sdn/2016-07-05-questnet-sdn-notes.pdf
+4. [Faucet : Openflow SDN Made Easy](https://www.ausnog.net/sites/default/files/ausnog-2018/presentations/1.8_Richard_Nelson_AusNOG2018.pdf)
+5. [Software defined networking - aarnet](https://www.gdt.id.au/~gdt/presentations/2016-07-05-questnet-sdn/2016-07-05-questnet-sdn-notes.pdf)
+6. [github Inside Openflow](https://github.com/inside-openflow)
